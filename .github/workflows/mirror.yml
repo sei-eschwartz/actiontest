@@ -1,6 +1,6 @@
 name: Mirror Repo
 on:
-  watch
+  watch:
     # Run if someone stars the repo!
     types: [started]
   schedule:
