@@ -1,5 +1,7 @@
 name: Mirror Repo
 on:
+  push:
+    # Run on push, mainly for rapid testing
   watch:
     # Run if someone stars the repo!
     types: [started]
