@@ -8,11 +8,10 @@ on:
   schedule:
     # 4 times a day
     - cron:  "42 */8 * * *"
-
 jobs:
   build:
-    if: github.actor == github.event.repository.owner.login
     runs-on: ubuntu-latest
+    if: github.actor == github.repository_owner
     steps:
     - name: Setup SSH Keys and known_hosts
       env:
@@ -24,15 +23,6 @@ jobs:
         ssh-add - <<< '${{ secrets.SSH_PRIVATE_KEY }}'
         git config --global user.email "eschwartz@cert.org"
         git config --global user.name "sei-eschwartz"
-    # - name: Mirror
-    #   run: |
-    #     git clone --bare 'http://github.com/cmu-sei/pharos'
-    #     cd pharos.git/
-    #     git remote add github "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
-    #     git push --mirror github
-    #   env:
-    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
     - name: Merge master
       env:
         SSH_AUTH_SOCK: /tmp/ssh_agent.sock
